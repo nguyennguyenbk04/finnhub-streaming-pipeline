@@ -1,0 +1,83 @@
+services:
+  zookeeper:
+    image: zookeeper:3.8
+    container_name: zookeeper
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+    networks:
+      - streaming-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.6.0
+    container_name: kafka
+    ports:
+      - 9092:9092
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+    depends_on:
+      - zookeeper
+    networks:
+      - streaming-network
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    container_name: kafka-ui
+    ports:
+     - 8080:8080
+    environment:
+     - KAFKA_CLUSTERS_0_NAME=local
+     - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
+    depends_on:
+     - kafka
+    networks:
+     - streaming-network
+
+  cassandra:
+    image: cassandra:${CASSANDRA_VERSION}
+    container_name: cassandra
+    ports:
+     - 9042:9042
+    networks:
+     - streaming-network
+
+  cassandra-web:
+    image: ipushc/cassandra-web:latest
+    container_name: cassandra-web
+    ports:
+      - 3001:8083
+    environment:
+      - CASSANDRA_HOST=cassandra
+      - CASSANDRA_PORT=9042
+    depends_on:
+      - cassandra
+    networks:
+      - streaming-network
+
+  grafana:
+    image: grafana/grafana:${GRAFANA_VERSION}
+    container_name: grafana
+    ports:
+     - 3000:3000
+    networks:
+     - streaming-network
+
+  finnhub-producer:
+    build: ../FinnhubProducer
+    container_name: finnhub-producer
+    env_file:
+      - ../FinnhubProducer/.env
+    depends_on:
+      - kafka
+    restart: on-failure
+    networks:
+      - streaming-network
+
+networks:
+  streaming-network:
+    driver: bridge
