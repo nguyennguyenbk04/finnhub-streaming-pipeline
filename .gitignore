@@ -1,1 +1,10 @@
+# Local notes
 note.txt
+
+# Environment files with secrets - never commit these
+.env
+**/.env
+
+# Keep example templates
+!.env.example
+!**/.env.example
