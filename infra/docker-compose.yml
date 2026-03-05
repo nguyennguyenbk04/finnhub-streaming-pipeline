@@ -43,24 +43,13 @@ services:
     container_name: cassandra
     ports:
      - 9042:9042
+    volumes:
+     - cassandra-data:/var/lib/cassandra
     networks:
      - streaming-network
 
-  cassandra-web:
-    image: ipushc/cassandra-web:latest
-    container_name: cassandra-web
-    ports:
-      - 3001:8083
-    environment:
-      - CASSANDRA_HOST=cassandra
-      - CASSANDRA_PORT=9042
-    depends_on:
-      - cassandra
-    networks:
-      - streaming-network
-
   grafana:
-    image: grafana/grafana:${GRAFANA_VERSION}
+    build: ../grafana
     container_name: grafana
     ports:
      - 3000:3000
@@ -78,6 +67,26 @@ services:
     networks:
       - streaming-network
 
+  stream-processor:
+    build: ../StreamProcessor
+    container_name: stream-processor
+    environment:
+      - KAFKA_BROKER=kafka:9092
+      - KAFKA_TOPIC=finnhub-trades
+      - CASSANDRA_HOST=cassandra
+      - CASSANDRA_USER=cassandra
+      - CASSANDRA_PASS=cassandra
+      - CASSANDRA_KEYSPACE=trading
+    depends_on:
+      - kafka
+      - cassandra
+    restart: on-failure
+    networks:
+      - streaming-network
+
 networks:
   streaming-network:
     driver: bridge
+
+volumes:
+  cassandra-data:

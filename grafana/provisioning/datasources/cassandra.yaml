@@ -1,0 +1,17 @@
+apiVersion: 1
+
+datasources:
+  - name: Cassandra
+    type: hadesarchitect-cassandra-datasource
+    access: proxy
+    uid: cassandra-trading
+    url: cassandra:9042
+    isDefault: true
+    jsonData:
+      consistency: ONE
+      keyspace: trading
+      user: cassandra
+    secureJsonData:
+      password: cassandra
+    version: 1
+    editable: true

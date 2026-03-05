@@ -1,0 +1,478 @@
+{
+  "title": "Crypto Live Trading Dashboard",
+  "uid": "crypto-live",
+  "refresh": "1s",
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "500ms",
+      "1s",
+      "2s",
+      "5s",
+      "10s"
+    ]
+  },
+  "schemaVersion": 38,
+  "style": "dark",
+  "templating": {
+    "list": [
+      {
+        "name": "symbol",
+        "label": "Symbol",
+        "type": "custom",
+        "query": "BINANCE:BTCUSDT,BINANCE:ETHUSDT,BINANCE:SOLUSDT,BINANCE:BNBUSDT,BINANCE:DOGEUSDT",
+        "current": { "text": "BINANCE:BTCUSDT", "value": "BINANCE:BTCUSDT" },
+        "options": [
+          { "text": "BINANCE:BTCUSDT",  "value": "BINANCE:BTCUSDT",  "selected": true },
+          { "text": "BINANCE:ETHUSDT",  "value": "BINANCE:ETHUSDT",  "selected": false },
+          { "text": "BINANCE:SOLUSDT",  "value": "BINANCE:SOLUSDT",  "selected": false },
+          { "text": "BINANCE:BNBUSDT",  "value": "BINANCE:BNBUSDT",  "selected": false },
+          { "text": "BINANCE:DOGEUSDT", "value": "BINANCE:DOGEUSDT", "selected": false }
+        ],
+        "hide": 0,
+        "includeAll": false,
+        "multi": false
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "BTC/USDT \u2014 Live Price",
+      "type": "stat",
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 4,
+        "h": 4
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT trade_time, price FROM trading.latest_price WHERE symbol='BINANCE:BTCUSDT'"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "ETH/USDT \u2014 Live Price",
+      "type": "stat",
+      "gridPos": {
+        "x": 4,
+        "y": 0,
+        "w": 4,
+        "h": 4
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT trade_time, price FROM trading.latest_price WHERE symbol='BINANCE:ETHUSDT'"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "SOL/USDT \u2014 Live Price",
+      "type": "stat",
+      "gridPos": {
+        "x": 8,
+        "y": 0,
+        "w": 4,
+        "h": 4
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT trade_time, price FROM trading.latest_price WHERE symbol='BINANCE:SOLUSDT'"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "DOGE/USDT \u2014 Live Price",
+      "type": "stat",
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 4,
+        "h": 4
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 5
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT trade_time, price FROM trading.latest_price WHERE symbol='BINANCE:DOGEUSDT'"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "BNB/USDT \u2014 Live Price",
+      "type": "stat",
+      "gridPos": {
+        "x": 16,
+        "y": 0,
+        "w": 4,
+        "h": 4
+      },
+      "options": {
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ]
+        },
+        "colorMode": "background",
+        "graphMode": "none"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT trade_time, price FROM trading.latest_price WHERE symbol='BINANCE:BNBUSDT'"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "BTC Price \u2014 Last 5 Minutes",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 0,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 15
+          }
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT symbol, price, trade_time FROM trading.trades WHERE symbol='BINANCE:BTCUSDT' AND trade_date=toDate(now()) AND trade_time>$__timeFrom AND trade_time<$__timeTo"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "title": "ETH Price \u2014 Last 5 Minutes",
+      "type": "timeseries",
+      "gridPos": {
+        "x": 12,
+        "y": 4,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "custom": {
+            "lineWidth": 2,
+            "fillOpacity": 15
+          }
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT symbol, price, trade_time FROM trading.trades WHERE symbol='BINANCE:ETHUSDT' AND trade_date=toDate(now()) AND trade_time>$__timeFrom AND trade_time<$__timeTo"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "title": "SOL Price \u2014 Last 5 Minutes",
+      "type": "timeseries",
+      "gridPos": { "x": 0, "y": 12, "w": 12, "h": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "custom": { "lineWidth": 2, "fillOpacity": 15 }
+        }
+      },
+      "targets": [{
+        "datasource": { "type": "hadesarchitect-cassandra-datasource", "uid": "cassandra-trading" },
+        "datasourceId": 1,
+        "queryType": "query",
+        "rawQuery": true,
+        "refId": "A",
+        "target": "SELECT symbol, price, trade_time FROM trading.trades WHERE symbol='BINANCE:SOLUSDT' AND trade_date=toDate(now()) AND trade_time>$__timeFrom AND trade_time<$__timeTo"
+      }]
+    },
+    {
+      "id": 11,
+      "title": "BNB Price \u2014 Last 5 Minutes",
+      "type": "timeseries",
+      "gridPos": { "x": 12, "y": 12, "w": 12, "h": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "custom": { "lineWidth": 2, "fillOpacity": 15 }
+        }
+      },
+      "targets": [{
+        "datasource": { "type": "hadesarchitect-cassandra-datasource", "uid": "cassandra-trading" },
+        "datasourceId": 1,
+        "queryType": "query",
+        "rawQuery": true,
+        "refId": "A",
+        "target": "SELECT symbol, price, trade_time FROM trading.trades WHERE symbol='BINANCE:BNBUSDT' AND trade_date=toDate(now()) AND trade_time>$__timeFrom AND trade_time<$__timeTo"
+      }]
+    },
+    {
+      "id": 12,
+      "title": "DOGE Price \u2014 Last 5 Minutes",
+      "type": "timeseries",
+      "gridPos": { "x": 0, "y": 20, "w": 24, "h": 8 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 5,
+          "custom": { "lineWidth": 2, "fillOpacity": 15 }
+        }
+      },
+      "targets": [{
+        "datasource": { "type": "hadesarchitect-cassandra-datasource", "uid": "cassandra-trading" },
+        "datasourceId": 1,
+        "queryType": "query",
+        "rawQuery": true,
+        "refId": "A",
+        "target": "SELECT symbol, price, trade_time FROM trading.trades WHERE symbol='BINANCE:DOGEUSDT' AND trade_date=toDate(now()) AND trade_time>$__timeFrom AND trade_time<$__timeTo"
+      }]
+    },
+    {
+      "id": 8,
+      "title": "1-Min OHLCV \u2014 $symbol",
+      "type": "table",
+      "gridPos": {
+        "x": 0,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "currencyUSD",
+          "decimals": 2
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "total_volume"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "trade_count"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "short"
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT window_start, open_price, high_price, low_price, close_price, total_volume, trade_count FROM trading.trades_agg_1m WHERE symbol='$symbol' AND trade_date=toDate(now()) ORDER BY window_start DESC LIMIT 30"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "title": "Latest Trades \u2014 $symbol",
+      "type": "table",
+      "gridPos": {
+        "x": 12,
+        "y": 28,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {},
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "price"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "currencyUSD"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "volume"
+            },
+            "properties": [
+              {
+                "id": "decimals",
+                "value": 6
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "hadesarchitect-cassandra-datasource",
+            "uid": "cassandra-trading"
+          },
+          "datasourceId": 1,
+          "queryType": "query",
+          "rawQuery": true,
+          "refId": "A",
+          "target": "SELECT trade_time, price, volume FROM trading.trades WHERE symbol='$symbol' AND trade_date=toDate(now()) AND trade_time>$__timeFrom AND trade_time<$__timeTo ORDER BY trade_time DESC LIMIT 15"
+        }
+      ]
+    }
+  ]
+}

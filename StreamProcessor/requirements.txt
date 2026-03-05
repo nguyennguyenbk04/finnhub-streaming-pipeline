@@ -1,0 +1,2 @@
+# PySpark is provided by bitnami/spark base image.
+# Add extra Python dependencies here if needed.
