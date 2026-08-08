@@ -1,7 +1,7 @@
 services:
   zookeeper:
     image: zookeeper:3.8
-    container_name: zookeeper
+    container_name: finnhub-zookeeper
     ports:
       - 2181:2181
       - 2888:2888
@@ -11,7 +11,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:7.6.0
-    container_name: kafka
+    container_name: finnhub-kafka
     ports:
       - 9092:9092
     environment:
@@ -27,7 +27,7 @@ services:
 
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
-    container_name: kafka-ui
+    container_name: finnhub-kafka-ui
     ports:
      - 8080:8080
     environment:
@@ -40,7 +40,7 @@ services:
 
   cassandra:
     image: cassandra:${CASSANDRA_VERSION}
-    container_name: cassandra
+    container_name: finnhub-cassandra
     ports:
      - 9042:9042
     volumes:
@@ -50,7 +50,7 @@ services:
 
   grafana:
     build: ../grafana
-    container_name: grafana
+    container_name: finnhub-grafana
     ports:
      - 3000:3000
     networks:
@@ -69,7 +69,7 @@ services:
 
   stream-processor:
     build: ../StreamProcessor
-    container_name: stream-processor
+    container_name: finnhub-stream-processor
     environment:
       - KAFKA_BROKER=kafka:9092
       - KAFKA_TOPIC=finnhub-trades
@@ -84,9 +84,87 @@ services:
     networks:
       - streaming-network
 
+  # ── Batch / Analytics stack ────────────────────────────────────────────────
+
+  minio:
+    image: minio/minio:latest
+    container_name: finnhub-minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9010:9000"   # S3 API — use localhost:9010 in notebooks
+      - "9011:9001"   # MinIO console
+    environment:
+      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
+      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
+    volumes:
+      - minio-data:/data
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 10s
+      retries: 5
+    networks:
+      - streaming-network
+
+  minio-init:
+    image: minio/mc:latest
+    container_name: finnhub-minio-init
+    depends_on:
+      minio:
+        condition: service_healthy
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD};
+      mc mb --ignore-existing local/${MINIO_BUCKET};
+      echo 'MinIO bucket ready';
+      "
+    networks:
+      - streaming-network
+
+  hive-metastore:
+    build: ../hive-metastore
+    container_name: finnhub-hive-metastore
+    environment:
+      - SERVICE_NAME=metastore
+      # Derby (embedded) — no external DB needed for local dev
+    volumes:
+      - hms-derby:/opt/hive/data/derby
+    ports:
+      - "9083:9083"
+    depends_on:
+      minio-init:
+        condition: service_completed_successfully
+    networks:
+      - streaming-network
+
+  trino:
+    image: trinodb/trino:${TRINO_VERSION}
+    container_name: finnhub-trino
+    ports:
+      - "8081:8080"
+    volumes:
+      - ../trino/etc:/etc/trino
+    depends_on:
+      - hive-metastore
+    networks:
+      - streaming-network
+
+  superset:
+    build: ../superset
+    container_name: finnhub-superset
+    ports:
+      - "8088:8088"
+    environment:
+      - SUPERSET_SECRET_KEY=${SUPERSET_SECRET_KEY}
+    depends_on:
+      - trino
+    networks:
+      - streaming-network
+
 networks:
   streaming-network:
     driver: bridge
 
 volumes:
   cassandra-data:
+  minio-data:
+  hms-derby:

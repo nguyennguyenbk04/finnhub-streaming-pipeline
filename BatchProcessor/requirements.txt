@@ -1,0 +1,3 @@
+# PySpark is provided by apache/spark base image
+# Delta Lake is installed via spark-submit --packages
+# No additional requirements needed

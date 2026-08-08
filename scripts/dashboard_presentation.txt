@@ -1,0 +1,96 @@
+================================================================================
+  CRYPTO LONG-TERM ANALYTICS — NỘI DUNG THUYẾT TRÌNH
+================================================================================
+
+────────────────────────────────────────────────────────────────────────────────
+BIỂU ĐỒ 1 — Hiệu suất chuẩn hoá (Gốc 100, tháng 1/2018)  [line chart]
+────────────────────────────────────────────────────────────────────────────────
+Toàn bộ ba tài sản được đưa về cùng mốc 100 vào ngày 1/1/2018, thể hiện mức
+tăng trưởng tương đối theo thời gian.
+
+  • Đây là cách so sánh công bằng nhất giữa ba đồng coin vì loại bỏ chênh lệch
+    về giá tuyệt đối — BTC giá hàng chục nghìn USD, LTC chỉ vài chục USD.
+  • Nhà đầu tư bỏ cùng một số tiền vào cả ba đồng vào đầu năm 2018 sẽ nhận
+    được kết quả rất khác nhau vào năm 2024.
+  • BTC và ETH tăng trưởng vượt trội so với LTC trên cơ sở chuẩn hoá.
+  • Cả ba đồng đều rớt xuống dưới mức 100 trong phần lớn năm 2018–2019,
+    tức là nhà đầu tư mua đầu năm 2018 phải chịu lỗ trong suốt giai đoạn đó
+    trước khi thị trường phục hồi.
+
+────────────────────────────────────────────────────────────────────────────────
+BIỂU ĐỒ 2 — Lợi nhuận hàng năm (%)  [bar chart]
+────────────────────────────────────────────────────────────────────────────────
+Lợi nhuận từ đầu năm đến cuối năm của từng tài sản, tính theo phần trăm.
+
+  • 2018: năm gấu thảm khốc — cả ba đồng đều ghi nhận lợi nhuận âm rất sâu.
+  • 2020–2021: chu kỳ bò điên, BTC và ETH tăng hàng trăm phần trăm trong một năm.
+  • 2022: năm gấu thứ hai, thị trường sụp đổ mạnh sau đỉnh của 2021.
+  • 2023–2024: giai đoạn phục hồi, BTC dẫn đầu.
+  • Kết luận: lợi nhuận của crypto theo năm rất cực đoan — không có năm "bình thường",
+    chỉ có thắng lớn hoặc thua nặng.
+
+────────────────────────────────────────────────────────────────────────────────
+BIỂU ĐỒ 3 — Biến động hàng năm (Annualized Volatility)  [bar chart]
+────────────────────────────────────────────────────────────────────────────────
+Độ lệch chuẩn của lợi nhuận hàng ngày nhân với √252, đơn vị phần trăm.
+
+  • 2018 và 2022 là hai năm biến động mạnh nhất — cũng là hai năm thị trường
+    sụp đổ, xác nhận mối liên hệ giữa khủng hoảng và biến động tăng cao.
+  • Ngay cả trong những năm "bình lặng", biến động hàng năm của crypto vẫn
+    vượt 50–80%, gấp nhiều lần so với thị trường chứng khoán truyền thống.
+  • LTC có biên độ biến động tương tự BTC, cho thấy hai đồng này có mức độ
+    tương quan cao với nhau.
+  • Các năm có biến động thấp hơn (2019, 2023) thường là giai đoạn thị trường
+    đi ngang, tích lũy trước chu kỳ tiếp theo.
+
+────────────────────────────────────────────────────────────────────────────────
+BIỂU ĐỒ 4 — Tính mùa vụ theo tháng  [bar chart]
+────────────────────────────────────────────────────────────────────────────────
+Lợi nhuận hàng ngày trung bình theo từng tháng trong năm, tổng hợp 2018–2024.
+
+  • Kiểm tra xem thị trường crypto có tính mùa vụ (seasonality) tương tự
+    thị trường chứng khoán hay không.
+  • Lịch sử cho thấy Quý 1 (tháng 1–3) và Quý 4 (tháng 10–12) thường có
+    lợi nhuận trung bình tốt hơn các tháng còn lại.
+  • Một số tháng liên tục ghi nhận lợi nhuận âm — thông tin hữu ích cho
+    chiến lược phân bổ vốn theo thời điểm.
+  • Dữ liệu trải dài hơn 6 năm nên các quy luật mùa vụ đã có ý nghĩa thống kê,
+    dù thị trường crypto còn non trẻ và có thể thay đổi trong tương lai.
+
+────────────────────────────────────────────────────────────────────────────────
+BIỂU ĐỒ 5 — Lợi nhuận Cuối tuần vs Ngày thường  [bar chart]
+────────────────────────────────────────────────────────────────────────────────
+So sánh lợi nhuận hàng ngày trung bình vào cuối tuần và ngày thường.
+
+  • Khác với chứng khoán, crypto giao dịch 24/7 — cuối tuần không đóng cửa.
+  • Biểu đồ kiểm tra xem hành vi giao dịch cuối tuần có khác ngày thường không.
+  • Nếu có "hiệu ứng cuối tuần" dương, nguyên nhân thường là nhà đầu tư cá nhân
+    hoạt động nhiều hơn, trong khi ngày thường phản ánh dòng tiền tổ chức.
+  • Biểu đồ này tận dụng cột is_weekend từ bảng dim_date trong tầng gold —
+    minh chứng cho giá trị của dimension table trong data warehouse.
+
+────────────────────────────────────────────────────────────────────────────────
+BIỂU ĐỒ 6 — Tỷ trọng vốn hoá thị trường trung bình  [pie chart]
+────────────────────────────────────────────────────────────────────────────────
+Vốn hoá thị trường trung bình của BTC, ETH và LTC trong toàn bộ giai đoạn.
+
+  • BTC chiếm tỷ trọng lớn nhất — phản ánh vị thế dẫn đầu thị trường.
+  • ETH giữ phần đáng kể, đặc biệt tăng mạnh từ 2020 nhờ làn sóng DeFi.
+  • LTC chiếm tỷ trọng nhỏ hơn nhiều — không theo kịp tốc độ tăng vốn hoá
+    của BTC và ETH trong giai đoạn 2018–2024.
+  • Mức độ thống trị của BTC (BTC dominance) là chỉ số được các nhà phân tích
+    crypto theo dõi sát để đánh giá chu kỳ thị trường.
+
+────────────────────────────────────────────────────────────────────────────────
+BIỂU ĐỒ 7 — Biên độ giá theo quý (Cao / Trung bình / Thấp)  [table]
+────────────────────────────────────────────────────────────────────────────────
+Tổng hợp dữ liệu OHLCV theo từng quý: giá cao nhất, giá đóng cửa trung bình,
+và giá thấp nhất trong quý.
+
+  • Cho thấy toàn bộ biên độ giá mỗi quý, không chỉ giá đóng cửa cuối kỳ.
+  • Quý 1/2021 và Quý 4/2021 nổi bật là giai đoạn đỉnh thị trường bò của BTC.
+  • Quý 2/2022 ghi nhận mức giảm mạnh nhất từ đỉnh xuống đáy trong quý.
+  • Biểu đồ này thể hiện giá trị của bảng dim_date — việc nhóm theo quý chỉ
+    cần một phép JOIN đơn giản với dim_date, không cần tính toán thủ công.
+
+================================================================================

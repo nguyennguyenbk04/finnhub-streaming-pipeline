@@ -1,0 +1,4 @@
+asset_key,asset_symbol,asset_name,asset_category,exchange,is_active
+1,BTC,Bitcoin,Layer1,Spot,true
+2,ETH,Ethereum,Layer1,Spot,true
+3,LTC,Litecoin,Layer1,Spot,true
